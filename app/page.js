@@ -13,9 +13,9 @@ export default function Home() {
           <div className={styles.description}>
         Have your students pass the exam?
       </div>
-          <GradebookApp />
       </div>
       </div>
+      <GradebookApp />
     </main>
   );
 }
