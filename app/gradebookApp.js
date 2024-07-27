@@ -1,62 +1,78 @@
 'use client'
 
-//import { useState } from "react";
+import React, { useState } from "react";
 import styles from "./page.module.css";
 
 function GradebookApp() {
-    return(
-        <form className={styles.card}>
-            <label className={styles.description}>Average Scores</label>
-            <input type="number" value="Average Scores" />
+    const [totalScores, setTotalScores] = useState([]);
+    const [studentScore, setStudentScore] = useState(0);
+    const [resultMessage, setResultMessage] = useState("");
+
+    const getAverage = (scores) => {
+        let sum = 0;
+
+        for (const score of scores) {
+            sum += score;
+        }
+        const average = sum / scores.length;
+        return average.toFixed(2);
+    }
+
+    const getGrade = (score) => {
+        if (score === 100) {
+            return "A++";
+        } else if (score >= 90) {
+            return "A";
+        } else if (score >= 80) {
+            return "B";
+        } else if (score >= 70) {
+            return "C";
+        } else if (score >= 60) {
+            return "D";
+        } else {
+            return "F";
+        }
+    }
+
+    const hasPassingGrade = (score) => {
+        return getGrade(score) !== "F";
+    }
+
+    const studentMsg = (totalScores, studentScore) => {
+        if (hasPassingGrade(studentScore)) {
+            return "Class average: " + getAverage(totalScores) + ". Your grade: " + getGrade(studentScore) + ". You passed the course."
+        } else {
+            return "Class average: " + getAverage(totalScores) + ". Your grade: " + getGrade(studentScore) + ". You failed the course."
+        }
+    }
+
+    const handleTotalScoresChange = (e) => {
+        const scores = e.target.value.split(',').map(score => parseFloat(score));
+        setTotalScores(scores);
+    }
+
+    const handleStudentScoreChange = (e) => {
+        setStudentScore(parseFloat(e.target.value));
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setResultMessage(studentMsg(totalScores, studentScore));
+    }
+
+    return (
+        <form className={styles.card} onSubmit={handleSubmit}>
+            <label className={styles.description}>Total Scores (comma separated)</label>
+            <input type="text" onChange={handleTotalScoresChange} />
             <label className={styles.description}>Student Score</label>
-            <input type="number" value="Student Score" />
+            <input type="number" onChange={handleStudentScoreChange} />
             <br />
-            <button type="submit" >Get Results</button>
-            <p className={styles.description}></p>
+            <button type="submit">Get Results</button>
+            <br />
+            <p className={styles.card}>{studentMsg(totalScores, studentScore)}</p>
+            {resultMessage && <p className={styles.card}>{resultMessage}</p>}
         </form>
     )
 }
 
 export default GradebookApp;
-
-/*
-function getAverage(scores) {
-  let sum = 0;
-
-  for (const score of scores) {
-    sum += score;
-  }
-
-  return sum / scores.length;
-}
-
-function getGrade(score) {
-  if (score === 100) {
-    return "A++";
-  } else if (score >= 90) {
-    return "A";
-  } else if (score >= 80) {
-    return "B";
-  } else if (score >= 70) {
-    return "C";
-  } else if (score >= 60) {
-    return "D";
-  } else {
-    return "F";
-  }
-}
-
-function hasPassingGrade(score) {
-  return getGrade(score) !== "F";
-}
-
-function studentMsg(totalScores, studentScore) {
-  if (hasPassingGrade(studentScore)) {
-    return "Class average: " + getAverage(totalScores) + ". Your grade: " + getGrade(studentScore) + ". You passed the course."
-  } else {
-   return "Class average: " + getAverage(totalScores) + ". Your grade: " + getGrade(studentScore) + ". You failed the course."
-  }
-}
-console.log(studentMsg([92, 88, 12, 77, 57, 100, 67, 38, 97, 89], 37));
-
-*/
