@@ -62,15 +62,14 @@ function GradebookApp() {
 
     return (
         <form className={styles.card} onSubmit={handleSubmit}>
-            <label className={styles.description}>Total Scores (comma separated)</label>
-            <input type="text" onChange={handleTotalScoresChange} />
+            <label className={styles.description}>Class Scores</label>
+            <input type="text" onChange={handleTotalScoresChange} placeholder="23, 45, 67... (comma separated)" />
             <label className={styles.description}>Student Score</label>
             <input type="number" onChange={handleStudentScoreChange} />
             <br />
             <button type="submit">Get Results</button>
             <br />
-            <p className={styles.card}>{studentMsg(totalScores, studentScore)}</p>
-            {resultMessage && <p className={styles.card}>{resultMessage}</p>}
+            {resultMessage && <p className={styles.description}>{resultMessage}</p>}
         </form>
     )
 }
