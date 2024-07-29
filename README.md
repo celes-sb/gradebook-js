@@ -1,4 +1,6 @@
 # Gradebook App
+https://celes-sb.github.io/gradebook-js/
+
 ## JavaScript and Next.js Project
 To run this application:
 ```bash
