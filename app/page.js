@@ -14,7 +14,11 @@ export default function Home() {
           </div>
       </div>
       <GradebookApp />
-      <a href="https://www.github.com/celes-sb" target="_blank" className={styles.description}>Author: Celeste S. Bareiro</a>
+      <footer className={styles.footer}>
+        <a href="https://www.github.com/celes-sb" target="_blank" rel="noopener noreferrer" className={styles.footerLink}>
+          Made by Celeste S. Bareiro
+        </a>
+      </footer>
     </main>
   );
 }

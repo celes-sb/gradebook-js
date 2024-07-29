@@ -50,6 +50,27 @@
   color: rgb(114, 30, 192);
 }
 
+.footer {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.footerLink {
+  font-family: monospace;
+  text-decoration: none;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerLink i {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
